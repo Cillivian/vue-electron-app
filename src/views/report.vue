@@ -1,15 +1,10 @@
 <template>
   <div class="report">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/index' }">系统首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/case' }">我的病例</el-breadcrumb-item>
-      <el-breadcrumb-item>{{report.name}}</el-breadcrumb-item>
-    </el-breadcrumb>
     <div class="main col">
       <div class="operation row">
-        <el-button>打印报告</el-button>
+        <el-button type="primary" icon="el-icon-printer">打印WORD报告</el-button>
       </div>
+      <div class="title">总有效睡眠时间（TST）=01:24 Hours</div>
       <div class="desc">
         <div class="desc-item large" style="font-size:20px;text-align:center;">患者详细信息</div>
         <div class="desc-item">患者姓名：{{report.name||'N/A'}}</div>
@@ -39,9 +34,18 @@ export default {
   mounted() {
     this.getParams();
   },
+  beforeDestroy(){
+localStorage.removeItem("report")
+  },
   methods: {
     getParams() {
-      this.report = this.$route.params.report;
+      // console.log(JSON.parse(this.$route.params.report))
+
+      this.report = JSON.parse(localStorage.getItem("report"));
+    },
+    goBack() {
+      console.log("aa");
+      this.$router.push("/case");
     }
   }
 };
@@ -69,6 +73,15 @@ export default {
       padding-bottom: 15px;
       border-bottom: 3px solid #000;
       width: 100%;
+    }
+    .title {
+      padding: 20px;
+      left: 50%;
+      position: relative;
+      transform: translateX(-50%);
+      font-size: 20px;
+      height: 30px;
+      line-height: 30px;
     }
     .desc {
       margin-top: 30px;

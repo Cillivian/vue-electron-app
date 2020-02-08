@@ -26,13 +26,6 @@ const router = new Router({
                         title: "我的病例"
                     }
                 }, {
-                    path: '/report',
-                    component: resolve => require(['../views/report.vue'], resolve),
-                    name: 'report',
-                    meta: {
-                        title: "病例报告"
-                    }
-                }, {
                     path: '/help',
                     component: resolve => require(['../views/help.vue'], resolve),
                     name: 'help',
@@ -49,7 +42,15 @@ const router = new Router({
                     name: '技术支持'
                 }
             ]
-        }
+        },
+        {
+            path: '/report',
+            component: resolve => require(['../views/report.vue'], resolve),
+            name: 'report',
+            meta: {
+                title: "病例报告"
+            }
+        },
 
     ]
 })
