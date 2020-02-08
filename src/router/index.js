@@ -1,27 +1,58 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
+Vue.use(Router)
+const router = new Router({
+    mode: process.env.IS_ELECTRON ? 'hash' : 'history',
+    routes: [{
+            path: '/',
+            component: resolve => require(['../views/Home.vue'], resolve),
+            name: 'admin',
+            meta: {
+                title: "后台管理"
+            },
+            children: [{
+                    path: '/index',
+                    component: resolve => require(['../views/index.vue'], resolve),
+                    name: 'adminIndex',
+                    meta: {
+                        title: "后台主页"
+                    }
+                },
+                {
+                    path: '/case',
+                    component: resolve => require(['../views/case.vue'], resolve),
+                    name: 'case',
+                    meta: {
+                        title: "我的病例"
+                    }
+                }, {
+                    path: '/report',
+                    component: resolve => require(['../views/report.vue'], resolve),
+                    name: 'report',
+                    meta: {
+                        title: "病例报告"
+                    }
+                }, {
+                    path: '/help',
+                    component: resolve => require(['../views/help.vue'], resolve),
+                    name: 'help',
+                    meta: {
+                        title: "使用帮助"
+                    }
+                }, {
+                    path: '/setting',
+                    component: resolve => require(['../views/setting.vue'], resolve),
+                    name: '系统设置'
+                }, {
+                    path: '/support',
+                    component: resolve => require(['../views/support.vue'], resolve),
+                    name: '技术支持'
+                }
+            ]
+        }
 
-Vue.use(VueRouter)
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
-
-const router = new VueRouter({
-  routes
+    ]
 })
+
 
 export default router
